@@ -109,6 +109,7 @@ return {
 			"TelescopeResults",
 			"TelescopePrompt",
 			"fidget",
+			"neo-tree",
 		}
 
 		-- Auto-install parsers and enable highlighting on FileType
