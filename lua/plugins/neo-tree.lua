@@ -15,6 +15,11 @@ return {
 		{ "<leader>gs", ":Neotree git_status<CR>", desc = "NeoTree Git Status", silent = true },
 	},
 	opts = {
+		default_component_configs = {
+			indent = {
+				with_expanders = false,
+			},
+		},
 		event_handlers = {
 			{
 				event = "neo_tree_buffer_enter",
@@ -27,18 +32,21 @@ return {
 		},
 		filesystem = {
 			window = {
-				position = "right",
+				position = "bottom",
 				mappings = {
 					["<leader>cd"] = "close_window",
 				},
 			},
 			filtered_items = {
-				hide_by_name = { "__init__.py" },
+			hide_by_name = { "__init__.py" },
 			},
 		},
 		git_status = {
 			window = {
 				position = "float",
+				popup = {
+					size = {height = "90%", width = "90%"}
+				}
 			},
 		},
 	},
