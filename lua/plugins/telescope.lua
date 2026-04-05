@@ -18,6 +18,16 @@ return {
 		require("keybindings.telescope")
 
 		require("telescope").setup({
+			defaults = {
+				layout_strategy = "vertical",
+				layout_config = {
+					vertical = {
+						preview_height = 0.70,
+					},
+					width = 0.99,
+					height = 0.99,
+				},
+			},
 			extensions = {
 				fzf = {
 					fuzzy = true,
