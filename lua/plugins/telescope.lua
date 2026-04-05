@@ -1,3 +1,8 @@
+-- NOTE: For adding file or folder to be ignored by telescope
+local file_ignore_patterns = {
+	"vendor/.*",
+}
+
 return {
 	"nvim-telescope/telescope.nvim",
 	version = "*",
@@ -19,6 +24,7 @@ return {
 
 		require("telescope").setup({
 			defaults = {
+				file_ignore_patterns = file_ignore_patterns,
 				layout_strategy = "vertical",
 				layout_config = {
 					vertical = {
