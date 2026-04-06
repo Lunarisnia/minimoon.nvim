@@ -32,21 +32,24 @@ return {
 		},
 		filesystem = {
 			window = {
-				position = "bottom",
+				position = "float",
 				mappings = {
 					["<leader>cd"] = "close_window",
 				},
+				popup = {
+					size = { height = "75%", width = "80%" },
+				},
 			},
 			filtered_items = {
-			hide_by_name = { "__init__.py" },
+				hide_by_name = { "__init__.py" },
 			},
 		},
 		git_status = {
 			window = {
 				position = "float",
 				popup = {
-					size = {height = "90%", width = "90%"}
-				}
+					size = { height = "90%", width = "90%" },
+				},
 			},
 		},
 	},

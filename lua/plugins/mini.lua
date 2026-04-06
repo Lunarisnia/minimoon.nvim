@@ -23,13 +23,69 @@ return { -- Collection of various small independent plugins/modules
       -- set use_icons to true if you have a Nerd Font
       statusline.setup { use_icons = vim.g.have_nerd_font }
 
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
       statusline.section_location = function()
         return '%2l:%-2v'
       end
+
+      ---@diagnostic disable-next-line: duplicate-set-field
+      statusline.section_git = function()
+        local branch = vim.b.gitsigns_head or ''
+        if branch == '' then return '' end
+        local status = vim.b.gitsigns_status or ''
+        if status ~= '' then
+          return ' ' .. branch .. '  ' .. status
+        end
+        return ' ' .. branch
+      end
+
+      ---@diagnostic disable-next-line: duplicate-set-field
+      statusline.active = function()
+        local mode, mode_hl = statusline.section_mode { trunc_width = 120 }
+        local git           = statusline.section_git()
+        local filename      = statusline.section_filename { trunc_width = 140 }
+        local fileinfo      = statusline.section_fileinfo { trunc_width = 120 }
+        local location      = statusline.section_location()
+        return statusline.combine_groups {
+          { hl = mode_hl,                    strings = { mode } },
+          { hl = 'MiniStatuslineDevinfo',    strings = { git } },
+          '%<',
+          { hl = 'MiniStatuslineFilename',   strings = { filename } },
+          '%=',
+          { hl = 'MiniStatuslineFileinfo',   strings = { fileinfo } },
+          { hl = mode_hl,                    strings = { location } },
+        }
+      end
+
+      -- Keybind hints: shows a popup after 800ms when you pause mid-sequence.
+      -- Only fires when you actually forget a binding — never during normal use.
+      local clue = require 'mini.clue'
+      clue.setup {
+        triggers = {
+          { mode = 'n', keys = '<Leader>' },
+          { mode = 'x', keys = '<Leader>' },
+          { mode = 'n', keys = 'g' },
+          { mode = 'n', keys = "'" },
+          { mode = 'n', keys = '`' },
+          { mode = 'n', keys = '"' },
+          { mode = 'i', keys = '<C-r>' },
+          { mode = 'c', keys = '<C-r>' },
+        },
+        clues = {
+          clue.gen_clues.g(),
+          clue.gen_clues.marks(),
+          clue.gen_clues.registers(),
+          { mode = 'n', keys = '<Leader>s', desc = '+Search' },
+          { mode = 'n', keys = '<Leader>g', desc = '+Git' },
+          { mode = 'n', keys = '<Leader>y', desc = '+Yank path' },
+          { mode = 'n', keys = '<Leader>d', desc = '+Document' },
+          { mode = 'n', keys = '<Leader>w', desc = '+Workspace' },
+        },
+        window = {
+          delay = 800,
+          config = { width = 'auto' },
+        },
+      }
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
