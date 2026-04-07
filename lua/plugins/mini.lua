@@ -74,9 +74,12 @@ return { -- Collection of various small independent plugins/modules
 				{ mode = "c", keys = "<C-r>" },
 			},
 			clues = {
-				clue.gen_clues.g(),
 				clue.gen_clues.marks(),
 				clue.gen_clues.registers(),
+				{ mode = "n", keys = "gd", desc = "LSP: Goto Definition" },
+				{ mode = "n", keys = "gr", desc = "LSP: Goto References" },
+				{ mode = "n", keys = "gI", desc = "LSP: Goto Implementation" },
+				{ mode = "n", keys = "gD", desc = "LSP: Goto Declaration" },
 				{ mode = "n", keys = "<Leader>s", desc = "+Search" },
 				{ mode = "n", keys = "<Leader>g", desc = "+Git" },
 				{ mode = "n", keys = "<Leader>y", desc = "+Yank path" },
