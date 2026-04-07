@@ -16,3 +16,5 @@ end, { desc = "[S]earch [N]eovim files" })
 
 -- NOTE: Not obvious why is this useful yet
 vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+
+vim.keymap.set("n", "<leader>gb", builtin.git_branches, { desc = "[G]it [B]ranches" })

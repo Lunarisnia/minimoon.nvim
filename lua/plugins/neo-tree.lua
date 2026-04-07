@@ -35,6 +35,44 @@ return {
 				position = "float",
 				mappings = {
 					["<leader>cd"] = "close_window",
+					["gp"] = {
+						function(state)
+							local root = state.path
+							vim.notify("git pull...", vim.log.levels.INFO)
+							vim.fn.jobstart({ "git", "-C", root, "pull" }, {
+								on_exit = function(_, code)
+									vim.schedule(function()
+										if code == 0 then
+											vim.notify("git pull done", vim.log.levels.INFO)
+											require("neo-tree.sources.manager").refresh("filesystem")
+										else
+											vim.notify("git pull failed", vim.log.levels.ERROR)
+										end
+									end)
+								end,
+							})
+						end,
+						desc = "Git Pull",
+					},
+					["gf"] = {
+						function(state)
+							local root = state.path
+							vim.notify("git fetch...", vim.log.levels.INFO)
+							vim.fn.jobstart({ "git", "-C", root, "fetch" }, {
+								on_exit = function(_, code)
+									vim.schedule(function()
+										if code == 0 then
+											vim.notify("git fetch done", vim.log.levels.INFO)
+											require("neo-tree.sources.manager").refresh("filesystem")
+										else
+											vim.notify("git fetch failed", vim.log.levels.ERROR)
+										end
+									end)
+								end,
+							})
+						end,
+						desc = "Git Fetch",
+					},
 				},
 				popup = {
 					size = { height = "75%", width = "80%" },
@@ -47,6 +85,46 @@ return {
 		git_status = {
 			window = {
 				position = "float",
+				mappings = {
+					["gp"] = {
+						function(state)
+							local root = vim.fn.getcwd()
+							vim.notify("git pull...", vim.log.levels.INFO)
+							vim.fn.jobstart({ "git", "-C", root, "pull" }, {
+								on_exit = function(_, code)
+									vim.schedule(function()
+										if code == 0 then
+											vim.notify("git pull done", vim.log.levels.INFO)
+											require("neo-tree.sources.manager").refresh("git_status")
+										else
+											vim.notify("git pull failed", vim.log.levels.ERROR)
+										end
+									end)
+								end,
+							})
+						end,
+						desc = "Git Pull",
+					},
+					["gf"] = {
+						function(state)
+							local root = vim.fn.getcwd()
+							vim.notify("git fetch...", vim.log.levels.INFO)
+							vim.fn.jobstart({ "git", "-C", root, "fetch" }, {
+								on_exit = function(_, code)
+									vim.schedule(function()
+										if code == 0 then
+											vim.notify("git fetch done", vim.log.levels.INFO)
+											require("neo-tree.sources.manager").refresh("git_status")
+										else
+											vim.notify("git fetch failed", vim.log.levels.ERROR)
+										end
+									end)
+								end,
+							})
+						end,
+						desc = "Git Fetch",
+					},
+				},
 				popup = {
 					size = { height = "90%", width = "90%" },
 				},

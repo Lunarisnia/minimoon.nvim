@@ -82,6 +82,7 @@ return { -- Collection of various small independent plugins/modules
 				{ mode = "n", keys = "gD", desc = "LSP: Goto Declaration" },
 				{ mode = "n", keys = "<Leader>s", desc = "+Search" },
 				{ mode = "n", keys = "<Leader>g", desc = "+Git" },
+				{ mode = "n", keys = "<Leader>gb", desc = "[G]it [B]ranches" },
 				{ mode = "n", keys = "<Leader>y", desc = "+Yank path" },
 				{ mode = "n", keys = "<Leader>d", desc = "+Document" },
 				{ mode = "n", keys = "<Leader>w", desc = "+Workspace" },
