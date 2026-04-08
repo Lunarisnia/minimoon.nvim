@@ -22,6 +22,14 @@ return { -- Collection of various small independent plugins/modules
 		local statusline = require("mini.statusline")
 		-- set use_icons to true if you have a Nerd Font
 		statusline.setup({ use_icons = vim.g.have_nerd_font })
+		vim.api.nvim_set_hl(0, "MiniStatuslineModified", { fg = "#FF9E3B", bg = "NONE" })
+
+		local function section_modified()
+			if vim.bo.modified then
+				return "●"
+			end
+			return ""
+		end
 
 		---@diagnostic disable-next-line: duplicate-set-field
 		statusline.section_location = function()
@@ -55,6 +63,7 @@ return { -- Collection of various small independent plugins/modules
 				{ hl = "MiniStatuslineFilename", strings = { filename } },
 				"%=",
 				{ hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
+				{ hl = "MiniStatuslineModified", strings = { section_modified() } },
 				{ hl = mode_hl, strings = { location } },
 			})
 		end
